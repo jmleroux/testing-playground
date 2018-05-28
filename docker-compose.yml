@@ -8,6 +8,6 @@ services:
             - ~/.composer:/home/.composer:cached
         environment:
             COMPOSER_HOME: /home/.composer
-            XDEBUG_CONFIG: "remote_host=${DOCKER_HOST_IP}"
+            XDEBUG_CONFIG: "remote_host=192.168.8.205"
             PHP_IDE_CONFIG: "serverName=php"
-        user: ${HOST_UID}:${HOST_GID}
+        user: 1000:1000
