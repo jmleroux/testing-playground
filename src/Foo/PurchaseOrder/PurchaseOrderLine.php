@@ -16,10 +16,23 @@ final class PurchaseOrderLine
     /** @var int */
     private $lineNumber;
 
-    public function __construct(Product\ProductId $productId, QuantityOrdered $quantityOrdered, QuantityReceived $quantityReceived)
-    {
+    public function __construct(
+        Product\ProductId $productId,
+        QuantityOrdered $quantityOrdered,
+        QuantityReceived $quantityReceived,
+        int $lineNumber
+    ) {
         $this->productId = $productId;
         $this->quantityOrdered = $quantityOrdered;
         $this->quantityReceived = $quantityReceived;
+        $this->lineNumber = $lineNumber;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLineNumber(): int
+    {
+        return $this->lineNumber;
     }
 }

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Foo\PurchaseOrder;
 
+use Assert\Assert;
+use Foo\Product\ProductId;
 use Foo\Supplier;
 
 final class PurchaseOrder
@@ -14,18 +16,23 @@ final class PurchaseOrder
     /** @var Supplier */
     private $supplier;
 
-    public function __construct(PurchaseOrderId $id, iterable $lines, Supplier $supplier)
+    public function __construct(PurchaseOrderId $id, Supplier $supplier)
     {
         $this->id = $id;
         $this->supplier = $supplier;
+    }
 
-        $this->lines = (function (PurchaseOrderLine ...$line) {
-            return $line;
-        })(...$lines);
+    public function addLine(ProductId $productId, QuantityOrdered $quantityOrdered): void
+    {
+        $quantityReceived = new QuantityReceived(0);
+        $lineNumber = max(array_keys($this->lines)) + 1;
+        $line = new PurchaseOrderLine($productId, $quantityOrdered, $quantityReceived, $lineNumber);
+        Assert::that($this->lines)->keyNotExists($line->getLineNumber());
+        $this->lines[$line->getLineNumber()] = $line;
     }
 
     public function getLineByNumber(int $lineNumber): PurchaseOrderLine
     {
-
+        return $this->lines[$lineNumber];
     }
 }
