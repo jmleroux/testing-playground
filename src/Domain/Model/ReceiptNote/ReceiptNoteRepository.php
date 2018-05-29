@@ -5,6 +5,7 @@ namespace Domain\Model\ReceiptNote;
 
 use Common\AggregateNotFound;
 use Common\AggregateRepository;
+use Domain\Model\Product\ProductId;
 
 final class ReceiptNoteRepository extends AggregateRepository
 {
@@ -22,5 +23,18 @@ final class ReceiptNoteRepository extends AggregateRepository
         }
 
         return $aggregate;
+    }
+
+    public function getByProductId(ProductId $productId): array
+    {
+        $linesForProduct = [];
+        /** @var ReceiptNote $receiptNote */
+        foreach ($this->objects as $receiptNote)
+        {
+
+            $lines[] = $receiptNote->getLinesByProductId($productId);
+        }
+
+        return [];
     }
 }

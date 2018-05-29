@@ -5,6 +5,7 @@ namespace Domain\Model\PurchaseOrder;
 
 use Common\AggregateNotFound;
 use Common\AggregateRepository;
+use Domain\Model\Product\ProductId;
 
 final class PurchaseOrderRepository extends AggregateRepository
 {
