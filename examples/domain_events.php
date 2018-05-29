@@ -5,19 +5,19 @@ namespace Example;
 
 use Common\EventDispatcher\EventCliLogger;
 use Common\EventDispatcher\EventDispatcher;
-use Foo\CreatedReceiptSubscriber;
-use Foo\Product\ProductId;
-use Foo\PurchaseOrder\PurchaseOrder;
-use Foo\PurchaseOrder\PurchaseOrderId;
-use Foo\PurchaseOrder\PurchaseOrderRepository;
-use Foo\PurchaseOrder\QuantityOrdered;
-use Foo\PurchaseOrder\QuantityReceived;
-use Foo\ReceiptNote\Event\ReceiptNoteCreated;
-use Foo\ReceiptNote\Event\ReceiptNoteLineAdded;
-use Foo\ReceiptNote\ReceiptNote;
-use Foo\ReceiptNote\ReceiptNoteId;
-use Foo\ReceiptNote\ReceiptNoteRepository;
-use Foo\Supplier;
+use Domain\Model\CreatedReceiptSubscriber;
+use Domain\Model\Product\ProductId;
+use Domain\Model\PurchaseOrder\PurchaseOrder;
+use Domain\Model\PurchaseOrder\PurchaseOrderId;
+use Domain\Model\PurchaseOrder\PurchaseOrderRepository;
+use Domain\Model\PurchaseOrder\QuantityOrdered;
+use Domain\Model\PurchaseOrder\QuantityReceived;
+use Domain\Model\ReceiptNote\Event\ReceiptNoteCreated;
+use Domain\Model\ReceiptNote\Event\ReceiptNoteLineAdded;
+use Domain\Model\ReceiptNote\ReceiptNote;
+use Domain\Model\ReceiptNote\ReceiptNoteId;
+use Domain\Model\ReceiptNote\ReceiptNoteRepository;
+use Domain\Model\Supplier;
 
 require __DIR__ . '/../bootstrap.php';
 
