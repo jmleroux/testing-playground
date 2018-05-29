@@ -5,12 +5,14 @@ namespace Example;
 
 use Common\EventDispatcher\EventCliLogger;
 use Common\EventDispatcher\EventDispatcher;
+use Foo\CreatedReceiptSubscriber;
 use Foo\Product\ProductId;
 use Foo\PurchaseOrder\PurchaseOrder;
 use Foo\PurchaseOrder\PurchaseOrderId;
 use Foo\PurchaseOrder\PurchaseOrderRepository;
 use Foo\PurchaseOrder\QuantityOrdered;
 use Foo\PurchaseOrder\QuantityReceived;
+use Foo\ReceiptNote\Event\ReceiptNoteCreated;
 use Foo\ReceiptNote\ReceiptNote;
 use Foo\ReceiptNote\ReceiptNoteId;
 use Foo\ReceiptNote\ReceiptNoteRepository;
@@ -31,8 +33,13 @@ require __DIR__ . '/../bootstrap.php';
 //$exampleAggregateRepository->save($aggregate);
 
 $eventDispatcher = new EventDispatcher();
+
+$purchaseOrderRepository = new PurchaseOrderRepository($eventDispatcher);
+$receiptNoteRepository = new ReceiptNoteRepository($eventDispatcher);
+
 $eventDispatcher->subscribeToAllEvents(new EventCliLogger());
-//$eventDispatcher->registerSubscriber(ExampleAggregateCreated::class, new ExampleAggregateCreatedSubscriber());
+$eventDispatcher->registerSubscriber(ExampleAggregateCreated::class, new ExampleAggregateCreatedSubscriber());
+$eventDispatcher->registerSubscriber(ReceiptNoteCreated::class, new CreatedReceiptSubscriber($receiptNoteRepository));
 
 $purchaseOrder = new PurchaseOrder(PurchaseOrderId::generate(), new Supplier('foo', 'bar'));
 $purchaseOrder->addLine(ProductId::generate(), new QuantityOrdered(5));
@@ -40,10 +47,8 @@ $purchaseOrder->addLine(ProductId::generate(), new QuantityOrdered(1));
 $purchaseOrder->addLine(ProductId::generate(), new QuantityOrdered(3));
 $purchaseOrder->place();
 
-$purchaseOrderRepository = new PurchaseOrderRepository($eventDispatcher);
 $purchaseOrderRepository->save($purchaseOrder);
 
-$receiptNoteRepository = new ReceiptNoteRepository($eventDispatcher);
 
 $receiptNote = new ReceiptNote(
     ReceiptNoteId::generate(),

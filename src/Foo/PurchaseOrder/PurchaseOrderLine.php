@@ -35,4 +35,16 @@ final class PurchaseOrderLine
     {
         return $this->lineNumber;
     }
+
+    public function getProductId(): Product\ProductId
+    {
+        return $this->productId;
+    }
+
+    public function addQuantityReceived(QuantityReceived $quantityReceived)
+    {
+        $this->quantityReceived = new QuantityReceived(
+            $this->quantityReceived->getQuantity() + $quantityReceived->getQuantity()
+        );
+    }
 }

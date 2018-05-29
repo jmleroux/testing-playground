@@ -59,6 +59,17 @@ final class PurchaseOrder extends Aggregate
         $this->isPlaced = true;
     }
 
+
+    public function processReceipt(ProductId $productId, QuantityReceived $quantityReceived): void
+    {
+        /** @var PurchaseOrderLine $line */
+        foreach ($this->lines as $line) {
+            if ((string)$line->getProductId() === (string)$productId) {
+                $line->addQuantityReceived($quantityReceived);
+            }
+        }
+    }
+
     public function id(): AggregateId
     {
         return $this->id;
