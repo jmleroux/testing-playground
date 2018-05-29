@@ -15,11 +15,14 @@ final class PurchaseOrderLineAdded
 
     private $purchaseOrderLine;
 
-    public function __construct(PurchaseOrderId $receiptNoteId, PurchaseOrderLine $receiptNoteLine, DateTimeImmutable $createdAt)
-    {
-        $this->purchaseOrderId = $receiptNoteId;
+    public function __construct(
+        PurchaseOrderId $purchaseOrderId,
+        PurchaseOrderLine $purchaseOrderLine,
+        DateTimeImmutable $createdAt
+    ) {
+        $this->purchaseOrderId = $purchaseOrderId;
         $this->createdAt = $createdAt;
-        $this->purchaseOrderLine = $receiptNoteLine;
+        $this->purchaseOrderLine = $purchaseOrderLine;
     }
 
     public function receiptNoteId(): PurchaseOrderId

@@ -28,7 +28,7 @@ final class PurchaseOrder extends Aggregate
         $this->supplier = $supplier;
 
         $this->recordThat(
-            new PurchaseOrderCreated($this, new \DateTimeImmutable())
+            new PurchaseOrderCreated($this->id, new \DateTimeImmutable())
         );
     }
 

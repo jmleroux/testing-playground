@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Foo\ReceiptNote\Event;
 
 use DateTimeImmutable;
+use Foo\ReceiptNote\ReceiptNoteId;
 
 final class ReceiptNoteCreated
 {

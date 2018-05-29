@@ -5,31 +5,31 @@ namespace Foo\PurchaseOrder\Event;
 
 use Common\AggregateId;
 use DateTimeImmutable;
-use Foo\PurchaseOrder\PurchaseOrder;
+use Foo\PurchaseOrder\PurchaseOrderId;
 
 final class PurchaseOrderCreated
 {
     /** @var DateTimeImmutable */
     private $createdAt;
-    /** @var PurchaseOrder */
-    private $purchaseOrder;
+    /** @var PurchaseOrderId */
+    private $purchaseOrderId;
 
     public function __construct(
-        PurchaseOrder $receiptNoteLine,
+        PurchaseOrderId $receiptNoteLine,
         DateTimeImmutable $createdAt
     ) {
         $this->createdAt = $createdAt;
-        $this->purchaseOrder = $receiptNoteLine;
+        $this->purchaseOrderId = $receiptNoteLine;
     }
 
-    public function receiptNoteId(): AggregateId
+    public function purchaseOrderId(): AggregateId
     {
-        return $this->purchaseOrder->id();
+        return $this->purchaseOrderId;
     }
 
-    public function receiptNoteLine(): PurchaseOrder
+    public function receiptNoteLine(): PurchaseOrderId
     {
-        return $this->purchaseOrder;
+        return $this->purchaseOrderId;
     }
 
     public function createdAt(): DateTimeImmutable
