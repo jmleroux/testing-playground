@@ -3,35 +3,22 @@ declare(strict_types=1);
 
 namespace Example;
 
+use Application\Subscriber\CreatedReceiptSubscriber;
 use Common\EventDispatcher\EventCliLogger;
 use Common\EventDispatcher\EventDispatcher;
-use Domain\Model\CreatedReceiptSubscriber;
 use Domain\Model\Product\ProductId;
 use Domain\Model\PurchaseOrder\PurchaseOrder;
 use Domain\Model\PurchaseOrder\PurchaseOrderId;
 use Domain\Model\PurchaseOrder\PurchaseOrderRepository;
 use Domain\Model\PurchaseOrder\QuantityOrdered;
 use Domain\Model\PurchaseOrder\QuantityReceived;
-use Domain\Model\ReceiptNote\Event\ReceiptNoteCreated;
 use Domain\Model\ReceiptNote\Event\ReceiptNoteLineAdded;
 use Domain\Model\ReceiptNote\ReceiptNote;
 use Domain\Model\ReceiptNote\ReceiptNoteId;
 use Domain\Model\ReceiptNote\ReceiptNoteRepository;
-use Domain\Model\Supplier;
+use Domain\Model\Supplier\Supplier;
 
 require __DIR__ . '/../bootstrap.php';
-
-//$eventDispatcher = new EventDispatcher();
-//$eventDispatcher->subscribeToAllEvents(new EventCliLogger());
-//$eventDispatcher->registerSubscriber(ExampleAggregateCreated::class, new ExampleAggregateCreatedSubscriber());
-//
-//$exampleAggregateRepository = new ExampleAggregateRepository($eventDispatcher);
-//
-//$aggregate = new ExampleAggregate(
-//    $exampleAggregateRepository->nextIdentity()
-//);
-//
-//$exampleAggregateRepository->save($aggregate);
 
 $eventDispatcher = new EventDispatcher();
 

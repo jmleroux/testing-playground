@@ -9,7 +9,7 @@ use Common\AggregateId;
 use Domain\Model\Product\ProductId;
 use Domain\Model\PurchaseOrder\Event\PurchaseOrderCreated;
 use Domain\Model\PurchaseOrder\Event\PurchaseOrderLineAdded;
-use Domain\Model\Supplier;
+use Domain\Model\Supplier\Supplier;
 
 final class PurchaseOrder extends Aggregate
 {

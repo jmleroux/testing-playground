@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\Model;
+namespace Application\Subscriber;
 
 use Domain\Model\PurchaseOrder\PurchaseOrderRepository;
 use Domain\Model\ReceiptNote\Event\ReceiptNoteLineAdded;

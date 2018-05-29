@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Domain\Model\PurchaseOrder;
 
 use Domain\Model\Product\ProductId;
-use Domain\Model\Supplier;
+use Domain\Model\Supplier\Supplier;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
