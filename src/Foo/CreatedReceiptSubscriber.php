@@ -3,25 +3,27 @@ declare(strict_types=1);
 
 namespace Foo;
 
-
-use Foo\ReceiptNote\Event\ReceiptNoteCreated;
-use Foo\ReceiptNote\ReceiptNoteRepository;
+use Foo\PurchaseOrder\PurchaseOrderRepository;
+use Foo\ReceiptNote\Event\ReceiptNoteLineAdded;
 
 class CreatedReceiptSubscriber
 {
-    /** @var ReceiptNoteRepository */
-    private $receiptNoteRepository;
+    private $purchaseOrderRepository;
 
-    public function __construct(ReceiptNoteRepository $receiptNoteRepository)
+    public function __construct(PurchaseOrderRepository $purchaseOrderRepository)
     {
-        $this->receiptNoteRepository = $receiptNoteRepository;
+        $this->purchaseOrderRepository = $purchaseOrderRepository;
     }
 
-    public function __invoke(ReceiptNoteCreated $event)
+    public function __invoke(ReceiptNoteLineAdded $event)
     {
-        $receiptNote = $this->receiptNoteRepository->getById($event->receiptNoteId());
+        $purchaseOrder = $this->purchaseOrderRepository->getById($event->purchaseOrderId());
 
+        $purchaseOrder->processReceipt(
+            $event->receiptNoteLine()->productId(),
+            $event->receiptNoteLine()->quantityReceived()
+        );
 
-        //        stdout(line(make_green('Aggregate created'), 'at', $event->createdAt()->format(DATE_ATOM)));
+        $this->purchaseOrderRepository->save($purchaseOrder);
     }
 }

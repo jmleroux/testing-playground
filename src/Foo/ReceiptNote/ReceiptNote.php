@@ -17,10 +17,10 @@ final class ReceiptNote extends Aggregate
     private $id;
     /** @var ReceiptNoteLine[] */
     private $lines = [];
-    /** @var PurchaseOrderId */
+    /** @var AggregateId */
     private $purchaseOrderId;
 
-    public function __construct(ReceiptNoteId $id, PurchaseOrderId $purchaseOrderId)
+    public function __construct(ReceiptNoteId $id, AggregateId $purchaseOrderId)
     {
         $this->id = $id;
         $this->purchaseOrderId = $purchaseOrderId;
@@ -36,7 +36,7 @@ final class ReceiptNote extends Aggregate
         $this->lines[] = $line;
 
         $this->recordThat(
-            new ReceiptNoteLineAdded($this->id, $line, new \DateTimeImmutable())
+            new ReceiptNoteLineAdded($this->id, $this->purchaseOrderId, $line, new \DateTimeImmutable())
         );
     }
 

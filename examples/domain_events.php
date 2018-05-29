@@ -13,6 +13,7 @@ use Foo\PurchaseOrder\PurchaseOrderRepository;
 use Foo\PurchaseOrder\QuantityOrdered;
 use Foo\PurchaseOrder\QuantityReceived;
 use Foo\ReceiptNote\Event\ReceiptNoteCreated;
+use Foo\ReceiptNote\Event\ReceiptNoteLineAdded;
 use Foo\ReceiptNote\ReceiptNote;
 use Foo\ReceiptNote\ReceiptNoteId;
 use Foo\ReceiptNote\ReceiptNoteRepository;
@@ -39,12 +40,16 @@ $receiptNoteRepository = new ReceiptNoteRepository($eventDispatcher);
 
 $eventDispatcher->subscribeToAllEvents(new EventCliLogger());
 $eventDispatcher->registerSubscriber(ExampleAggregateCreated::class, new ExampleAggregateCreatedSubscriber());
-$eventDispatcher->registerSubscriber(ReceiptNoteCreated::class, new CreatedReceiptSubscriber($receiptNoteRepository));
+$eventDispatcher->registerSubscriber(ReceiptNoteLineAdded::class, new CreatedReceiptSubscriber($purchaseOrderRepository));
+
+$productIdA = ProductId::generate();
+$productIdB = ProductId::generate();
+$productIdC = ProductId::generate();
 
 $purchaseOrder = new PurchaseOrder(PurchaseOrderId::generate(), new Supplier('foo', 'bar'));
-$purchaseOrder->addLine(ProductId::generate(), new QuantityOrdered(5));
-$purchaseOrder->addLine(ProductId::generate(), new QuantityOrdered(1));
-$purchaseOrder->addLine(ProductId::generate(), new QuantityOrdered(3));
+$purchaseOrder->addLine($productIdA, new QuantityOrdered(5));
+$purchaseOrder->addLine($productIdB, new QuantityOrdered(1));
+$purchaseOrder->addLine($productIdC, new QuantityOrdered(3));
 $purchaseOrder->place();
 
 $purchaseOrderRepository->save($purchaseOrder);
@@ -52,17 +57,19 @@ $purchaseOrderRepository->save($purchaseOrder);
 
 $receiptNote = new ReceiptNote(
     ReceiptNoteId::generate(),
-    PurchaseOrderId::generate()
+    $purchaseOrder->id()
 );
 
 $receiptNote->addLine(
-    ProductId::generate(),
+    $productIdA,
     new QuantityReceived(5)
 );
 
 $receiptNote->addLine(
-    ProductId::generate(),
+    $productIdC,
     new QuantityReceived(1)
 );
 
 $receiptNoteRepository->save($receiptNote);
+
+dump($purchaseOrder);

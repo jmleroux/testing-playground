@@ -14,9 +14,20 @@ final class ReceiptNoteLine
     /** @var QuantityReceived */
     private $quantityReceived;
 
+
     public function __construct(ProductId $productId, QuantityReceived $quantityReceived)
     {
         $this->productId = $productId;
         $this->quantityReceived = $quantityReceived;
+    }
+
+    public function productId(): ProductId
+    {
+        return $this->productId;
+    }
+
+    public function quantityReceived(): QuantityReceived
+    {
+        return $this->quantityReceived;
     }
 }
