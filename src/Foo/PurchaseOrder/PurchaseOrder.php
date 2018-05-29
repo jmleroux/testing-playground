@@ -7,6 +7,8 @@ use Assert\Assert;
 use Common\Aggregate;
 use Common\AggregateId;
 use Foo\Product\ProductId;
+use Foo\PurchaseOrder\Event\PurchaseOrderCreated;
+use Foo\PurchaseOrder\Event\PurchaseOrderLineAdded;
 use Foo\Supplier;
 
 final class PurchaseOrder extends Aggregate
@@ -26,7 +28,7 @@ final class PurchaseOrder extends Aggregate
         $this->supplier = $supplier;
 
         $this->recordThat(
-            new PurchaseOrderLineAdded($this->id, $this, new \DateTimeImmutable())
+            new PurchaseOrderCreated($this, new \DateTimeImmutable())
         );
     }
 

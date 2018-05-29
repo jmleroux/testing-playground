@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Foo\PurchaseOrder;
+namespace Foo\PurchaseOrder\Event;
 
 use DateTimeImmutable;
+use Foo\PurchaseOrder\PurchaseOrderId;
+use Foo\PurchaseOrder\PurchaseOrderLine;
 
 final class PurchaseOrderLineAdded
 {

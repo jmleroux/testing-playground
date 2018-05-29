@@ -8,6 +8,8 @@ use Common\AggregateId;
 use Foo\Product\ProductId;
 use Foo\PurchaseOrder\PurchaseOrderId;
 use Foo\PurchaseOrder\QuantityReceived;
+use Foo\ReceiptNote\Event\ReceiptNoteCreated;
+use Foo\ReceiptNote\Event\ReceiptNoteLineAdded;
 
 final class ReceiptNote extends Aggregate
 {

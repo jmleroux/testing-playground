@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Foo\PurchaseOrder;
+namespace Foo\PurchaseOrder\Event;
 
 use Common\AggregateId;
 use DateTimeImmutable;
+use Foo\PurchaseOrder\PurchaseOrder;
 
 final class PurchaseOrderCreated
 {

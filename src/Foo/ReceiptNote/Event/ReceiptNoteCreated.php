@@ -1,33 +1,25 @@
 <?php
 declare(strict_types=1);
 
-namespace Foo\ReceiptNote;
+namespace Foo\ReceiptNote\Event;
 
 use DateTimeImmutable;
 
-final class ReceiptNoteLineAdded
+final class ReceiptNoteCreated
 {
     private $createdAt;
 
     private $receiptNoteId;
 
-    private $receiptNoteLine;
-
-    public function __construct(ReceiptNoteId $receiptNoteId, ReceiptNoteLine $receiptNoteLine, DateTimeImmutable $createdAt)
+    public function __construct(ReceiptNoteId $receiptNoteId, DateTimeImmutable $createdAt)
     {
         $this->receiptNoteId = $receiptNoteId;
         $this->createdAt = $createdAt;
-        $this->receiptNoteLine = $receiptNoteLine;
     }
 
     public function receiptNoteId(): ReceiptNoteId
     {
         return $this->receiptNoteId;
-    }
-
-    public function receiptNoteLine(): ReceiptNoteLine
-    {
-        return $this->receiptNoteLine;
     }
 
     public function createdAt(): DateTimeImmutable
