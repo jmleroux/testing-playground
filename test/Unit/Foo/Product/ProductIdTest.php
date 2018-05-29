@@ -21,7 +21,8 @@ final class ProductIdTest extends TestCase
      */
     public function it_can_create_a_uuid_from_string(): void
     {
-        $productId = ProductId::fromString('foobar');
+        $productId = ProductId::fromString('dd53adb1-2605-44e7-8258-c00eeb2a73e4');
         self::assertInstanceOf(ProductId::class, $productId);
+        self::assertSame('dd53adb1-2605-44e7-8258-c00eeb2a73e4', $productId->__toString());
     }
 }

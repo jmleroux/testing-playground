@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace Foo\Product;
 
-final class Product
+use Common\Aggregate;
+use Common\AggregateId;
+
+final class Product extends Aggregate
 {
     /** @var string */
     private $name;
@@ -14,5 +17,10 @@ final class Product
     {
         $this->id = $id;
         $this->name = $name;
+    }
+
+    public function id(): AggregateId
+    {
+        return $this->id;
     }
 }
