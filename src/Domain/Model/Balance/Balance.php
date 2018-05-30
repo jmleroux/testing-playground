@@ -9,6 +9,7 @@ final class Balance
 {
     /** @var ProductId */
     private $productId;
+    private $stockLevel;
 
     public static function create(ProductId $productId)
     {
@@ -18,5 +19,6 @@ final class Balance
     private function __construct(ProductId $productId)
     {
         $this->productId = $productId;
+        $this->stockLevel = new StockLevel();
     }
 }

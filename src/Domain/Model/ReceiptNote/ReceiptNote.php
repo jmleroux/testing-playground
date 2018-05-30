@@ -44,11 +44,4 @@ final class ReceiptNote extends Aggregate
     {
         return $this->id;
     }
-
-    public function getLinesByProductId(ProductId $productId): array
-    {
-        return array_filter($this->lines, function (ReceiptNoteLine $line) use ($productId) {
-            return $line->getProductId() === $productId;
-        });
-    }
 }

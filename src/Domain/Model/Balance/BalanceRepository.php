@@ -7,7 +7,7 @@ use Common\AggregateNotFound;
 use Common\AggregateRepository;
 use Domain\Model\Balance\Balance;
 
-final class BalanceRepository extends AggregateRepository
+final class BalanceRepository
 {
     public function save(Balance $aggregate): void
     {
